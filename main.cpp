@@ -31,8 +31,6 @@ int main() {
     BeginDrawing();
     ClearBackground(WHITE);
 
-    // Game logic begins
-
     bool collision_with_axe =
         (b_axe_y >= u_circle_y) && (u_axe_y <= b_circle_y) &&
         (l_axe_x <= r_circle_x) && (r_axe_x >= l_circle_x);
@@ -76,8 +74,6 @@ int main() {
         circle_y += 10;
       }
     }
-
-    // Game logic ends
 
     EndDrawing();
   }
