@@ -5,6 +5,8 @@ int main() {
 
   InitWindow(windowWidth, windowHeight, "Dapper Dasher");
 
+  const int gravity{1};
+
   const int width{50};
   const int height{80};
 
@@ -22,6 +24,12 @@ int main() {
     }
 
     posY += velocity;
+
+    if (posY >= windowHeight - height) {
+      velocity = 0;
+    } else {
+      velocity += gravity;
+    }
 
     DrawRectangle(windowWidth / 2, posY, width, height, BLUE);
 
