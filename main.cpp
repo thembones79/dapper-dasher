@@ -6,12 +6,13 @@ int main() {
   InitWindow(windowWidth, windowHeight, "Dapper Dasher");
 
   const int gravity{1};
-
+  const int jumpVel{-22};
   const int width{50};
   const int height{80};
 
   int posY{windowHeight - height};
-  int velocity{0};
+  int velocity{};
+  bool isInAir{false};
 
   SetTargetFPS(240);
 
@@ -19,16 +20,18 @@ int main() {
     BeginDrawing();
     ClearBackground(WHITE);
 
-    if (IsKeyDown(KEY_SPACE)) {
-      velocity = -10;
-    }
+    isInAir = posY < windowHeight - height;
 
     posY += velocity;
 
-    if (posY >= windowHeight - height) {
+    if (!isInAir) {
       velocity = 0;
     } else {
       velocity += gravity;
+    }
+
+    if (IsKeyDown(KEY_SPACE) && !isInAir) {
+      velocity = jumpVel;
     }
 
     DrawRectangle(windowWidth / 2, posY, width, height, BLUE);
