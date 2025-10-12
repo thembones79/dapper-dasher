@@ -17,6 +17,10 @@ int main() {
   scarfyPos.x = windowWidth / 2 - scarfyRec.width / 2;
   scarfyPos.y = windowHeight - scarfyRec.height;
 
+  int frame{};
+  const float updateTime{1.0 / 12.0};
+  float runningTime{};
+
   const int jumpVel{-1600};
 
   int velocity{};
@@ -44,6 +48,16 @@ int main() {
     }
 
     scarfyPos.y += velocity * dT;
+
+    runningTime += dT;
+    if (runningTime >= updateTime) {
+      runningTime = 0.0;
+      scarfyRec.x = frame * scarfyRec.width;
+      frame++;
+      if (frame > 5) {
+        frame = 0;
+      }
+    }
 
     DrawTextureRec(scarfy, scarfyRec, scarfyPos, WHITE);
 
