@@ -1,5 +1,9 @@
 #include "raylib.h"
 
+struct AnimData {
+  Rectangle rec;
+};
+
 int main() {
   // window dimensions
   const int windowWidth{512};
