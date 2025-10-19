@@ -79,6 +79,11 @@ int main() {
   // jump velocity (pixels/second)
   const int jumpVel{-600};
 
+
+
+Texture2D backgroung = LoadTexture("textures/");
+
+
   int velocity{0};
 
   SetTargetFPS(60);
