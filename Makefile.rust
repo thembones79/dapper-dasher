@@ -1,0 +1,45 @@
+# Makefile
+
+# Ścieżki
+FRONTEND_DIR=frontend
+BACKEND_DIR=backend
+TARGET_DIR=target
+WASM_OUT=$(FRONTEND_DIR)/pkg
+
+# Kompilacja frontend (WASM)
+wasm:
+    cd $(FRONTEND_DIR) && wasm-pack build --target web --out-dir pkg
+
+# Budowanie backendu
+backend:
+    cargo build --manifest-path $(BACKEND_DIR)/Cargo.toml
+
+# Uruchomienie backendu z Axum
+run:
+    cargo run --manifest-path $(BACKEND_DIR)/Cargo.toml
+
+# Testy
+test:
+    cargo test --workspace
+
+# Czyszczenie
+clean:
+    cargo clean
+
+# Watch (wymaga cargo-watch)
+watch:
+    cargo watch -x 'run --manifest-path $(BACKEND_DIR)/Cargo.toml'
+
+# Budowanie całości
+build: wasm backend
+
+# Dev workflow
+dev: wasm run
+
+# Deployment (przykład: kopiowanie plików do folderu dist)
+deploy:
+    mkdir -p dist
+    cp -r $(WASM_OUT)/* dist/
+    cp $(BACKEND_DIR)/target/release/backend dist/
+
+.PHONY: wasm backend run test clean watch build dev deploy
